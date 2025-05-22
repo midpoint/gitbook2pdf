@@ -558,6 +558,18 @@ class GitbookScraper:
             if not self.pages:
                 logger.warning("未能抓取到任何页面内容")
             else:
+                # 根据目录顺序对页面进行排序
+                logger.info("根据目录顺序对页面进行排序...")
+                
+                # 创建URL到目录索引的映射
+                url_to_index = {}
+                for i, item in enumerate(filtered_toc):
+                    url = urljoin(self.base_url, item['href'])
+                    url_to_index[url] = i
+                
+                # 根据URL在目录中的位置对页面进行排序
+                self.pages.sort(key=lambda page: url_to_index.get(page['url'], float('inf')))
+                
                 logger.info(f"抓取完成，共获取 {len(self.pages)} 个页面")
                 
             return self.pages, self.toc
