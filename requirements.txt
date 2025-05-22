@@ -1,0 +1,5 @@
+requests==2.31.0
+beautifulsoup4==4.12.2
+weasyprint==52.5
+urllib3==2.0.7
+markdown2==2.4.10
